@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Calculators</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Health Calculators</h1>
+        <div id="home" class="calculator-list">
+            <button class="calculator-link" onclick="showCalculator('bmi')">BMI Calculator</button>
+            <button class="calculator-link" onclick="showCalculator('bodyfat')">Body Fat Calculator</button>
+            <button class="calculator-link" onclick="showCalculator('bmr')">BMR Calculator</button>
+        </div>
+
+        <div id="bmi-section" class="calculator-section">
+            <button class="back-button" onclick="goBack()">Back</button>
+            <h2>BMI Calculator</h2>
+            <div class="calculator">
+                <div class="form">
+                    <label>Age: <input type="number" id="bmi-age" value="25" min="2" max="120"> years (2-120)</label>
+                    <label>Gender: 
+                        <input type="radio" name="bmi-gender" value="male" checked> Male
+                        <input type="radio" name="bmi-gender" value="female"> Female
+                    </label>
+                    <label>Height: 
+                        <div id="bmi-height-inputs">
+                            <input type="number" id="bmi-height-cm" value="180" placeholder="cm">
+                            <div class="height-input" style="display: none;">
+                                <input type="number" id="bmi-height-feet" placeholder="feet" min="0">
+                                <input type="number" id="bmi-height-inches" placeholder="inches" min="0" max="11">
+                            </div>
+                        </div>
+                        <select id="bmi-height-unit" onchange="toggleHeightInput('bmi')">
+                            <option value="cm" selected>cm</option>
+                            <option value="feet">feet/inches</option>
+                        </select>
+                    </label>
+                    <label>Weight: 
+                        <input type="number" id="bmi-weight" value="65">
+                        <select id="bmi-weight-unit">
+                            <option value="kg" selected>kg</option>
+                            <option value="lbs">lbs</option>
+                        </select>
+                    </label>
+                    <button onclick="calculateBMI()">Calculate</button>
+                    <button onclick="clearForm('bmi')">Clear</button>
+                </div>
+                <div id="bmi-result" class="result"></div>
+            </div>
+        </div>
+
+        <div id="bodyfat-section" class="calculator-section">
+            <button class="back-button" onclick="goBack()">Back</button>
+            <h2>Body Fat Calculator</h2>
+            <div class="calculator">
+                <div class="form">
+                    <label>Gender: 
+                        <input type="radio" name="bodyfat-gender" value="male" checked> Male
+                        <input type="radio" name="bodyfat-gender" value="female"> Female
+                    </label>
+                    <label>Age: <input type="number" id="bodyfat-age" value="25"></label>
+                    <label>Weight: 
+                        <input type="number" id="bodyfat-weight" value="70">
+                        <select id="bodyfat-weight-unit">
+                            <option value="kg" selected>kg</option>
+                            <option value="lbs">lbs</option>
+                        </select>
+                    </label>
+                    <label>Height: 
+                        <div id="bodyfat-height-inputs">
+                            <input type="number" id="bodyfat-height-cm" value="178" placeholder="cm">
+                            <div class="height-input" style="display: none;">
+                                <input type="number" id="bodyfat-height-feet" placeholder="feet" min="0">
+                                <input type="number" id="bodyfat-height-inches" placeholder="inches" min="0" max="11">
+                            </div>
+                        </div>
+                        <select id="bodyfat-height-unit" onchange="toggleHeightInput('bodyfat')">
+                            <option value="cm" selected>cm</option>
+                            <option value="feet">feet/inches</option>
+                        </select>
+                    </label>
+                    <label>Neck: 
+                        <input type="number" id="bodyfat-neck" value="50">
+                        <select id="bodyfat-neck-unit">
+                            <option value="cm" selected>cm</option>
+                            <option value="in">in</option>
+                        </select>
+                    </label>
+                    <label>Waist: 
+                        <input type="number" id="bodyfat-waist" value="96">
+                        <select id="bodyfat-waist-unit">
+                            <option value="cm" selected>cm</option>
+                            <option value="in">in</option>
+                        </select>
+                    </label>
+                    <button onclick="calculateBodyFat()">Calculate</button>
+                    <button onclick="clearForm('bodyfat')">Clear</button>
+                </div>
+                <div id="bodyfat-result" class="result"></div>
+            </div>
+        </div>
+
+        <div id="bmr-section" class="calculator-section">
+            <button class="back-button" onclick="goBack()">Back</button>
+            <h2>BMR Calculator</h2>
+            <div class="calculator">
+                <div class="form">
+                    <label>Age: <input type="number" id="bmr-age" value="25" min="15" max="80"> years (15-80)</label>
+                    <label>Gender: 
+                        <input type="radio" name="bmr-gender" value="male" checked> Male
+                        <input type="radio" name="bmr-gender" value="female"> Female
+                    </label>
+                    <label>Height: 
+                        <div id="bmr-height-inputs">
+                            <input type="number" id="bmr-height-cm" value="180" placeholder="cm">
+                            <div class="height-input" style="display: none;">
+                                <input type="number" id="bmr-height-feet" placeholder="feet" min="0">
+                                <input type="number" id="bmr-height-inches" placeholder="inches" min="0" max="11">
+                            </div>
+                        </div>
+                        <select id="bmr-height-unit" onchange="toggleHeightInput('bmr')">
+                            <option value="cm" selected>cm</option>
+                            <option value="feet">feet/inches</option>
+                        </select>
+                    </label>
+                    <label>Weight: 
+                        <input type="number" id="bmr-weight" value="60">
+                        <select id="bmr-weight-unit">
+                            <option value="kg" selected>kg</option>
+                            <option value="lbs">lbs</option>
+                        </select>
+                    </label>
+                    <label>Activity: 
+                        <select id="bmr-activity">
+                            <option value="1.2">Sedentary: little or no exercise</option>
+                            <option value="1.375">Exercise 1-3 times/week</option>
+                            <option value="1.55">Exercise 4-5 times/week</option>
+                            <option value="1.725">Daily exercise or intense 3-4 times/week</option>
+                            <option value="1.9">Intense exercise 6-7 times/week</option>
+                            <option value="2.2" selected>Very intense exercise daily, or physical job</option>
+                        </select>
+                    </label>
+                    <button onclick="calculateBMR()">Calculate</button>
+                    <button onclick="clearForm('bmr')">Clear</button>
+                </div>
+                <div id="bmr-result" class="result"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
